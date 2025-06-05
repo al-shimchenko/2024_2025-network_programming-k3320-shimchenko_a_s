@@ -162,7 +162,7 @@ ansible_user=admin
 ![](pics/3.jpg)
 
 # Схема сети   
-![](pics/4.jpg)
+![](pics/4.jpg.png)
 
 ---  
 # Вывод
