@@ -24,7 +24,7 @@ Date of finished: 8.06.2025
 ## Ход работы: ##
 
 
-###  Установка Netbox  ###
+#  Установка Netbox  
 Для установки NetBox использовалась [инструкция](https://docs.netbox.dev/en/stable/installation/).
 1. Установка PostgreSQL и создание БД
 ```
@@ -78,32 +78,86 @@ sudo ln -s /etc/nginx/sites-available/netbox /etc/nginx/sites-enabled/netbox
 sudo systemctl restart nginx
 ```
 После активации конфигурации и перезапуска Nginx NetBox становится доступен через браузер 
-### Inventory-файл (hosts.ini) ###
-Создан inventory-файл для указания устройств и параметров подключения:
-```
-[routers]
-chr_1 ansible_host=172.27.240.20 ansible_ssh_pass=123 router_id=10.10.10.1
-chr_2 ansible_host=172.27.240.21 ansible_ssh_pass=123 router_id=10.10.10.2
 
-[routers:vars]
-ansible_connection=ansible.netcommon.network_cli
-ansible_network_os=community.routeros.routeros
-ansible_user=admin
-```
-### Настройка Netbox в браузере ###
+# Настройка Netbox в браузере 
 После успешного входа в веб-интерфейс NetBox под учетной записью администратора в разделе Devices были добавлены два сетевых устройства.
 ![](pics/1.jpg)    интерфейс экрана
 ![](pics/2.jpg)    2 роутера интерфейс
- 
-  
-# Проверка настройки 
 
-Результаты пингов, проверки локальной связности:  
-![](pics/3.jpg)
+# Работа с Ansible 
+Создаем inventory-файл для сохранения всех данных
+```
+plugin: netbox.netbox.nb_inventory
+api_endpoint: http://31.129.56.21:8080/
+token: "токен"
+validate_certs: False
+config_context: False
+interfaces: True
+```
+Запустили роль, сохранив вывод в файл [netbox_inventory.yml](./netbox_inventory.yml)
+```
+ansible-inventory -v --list -y -i netbox_conf_galaxy.yml > netbox_inventory.yml
+```
+### Первый сценарий ###
 
-# Схема сети   
-![](pics/4.jpg.png)
+В рамках созданного playbook были реализованы задачи по автоматической настройке сетевых устройств. В частности, выполнены следующие действия:
+
+- Изменение имени устройства на то, которое указано в системе NetBox;
+
+- Добавление IP-адреса (выданного через VPN) на новое сетевое устройство.
+```
+- name: Configuration
+  hosts: devices
+  tasks:
+    - name: Set Name
+      community.routeros.command:
+        commands:
+          - /system identity set name="{{interfaces[0].device.name}}"
+    - name: Set IP-address
+      community.routeros.command:
+        commands:
+        - /interface bridge add name="{{interfaces[1].display}}"
+        - /ip address add address="{{interfaces[1].ip_addresses[0].address}}" interface="{{interfaces[1].display}}"
+```
+Обе задачи были успешно выполнены. В результате имя устройства было изменено (ранее использовалось имя по умолчанию — MikroTik), а также был добавлен IP-адрес на новый интерфейс, созданный в ходе выполнения playbook. 
+
+ ![](pics/3.jpg)    микротик интерфейс
+
+### Второй сценарий ### 
+На следующем этапе playbook был доработан с целью автоматического получения серийного номера с каждого устройства и последующего внесения этой информации в систему NetBox.
+```
+- name: Serial Numbers
+  hosts: devices
+  tasks:
+    - name: Serial Number
+      community.routeros.command:
+        commands:
+          - /system license print
+      register: license
+    - name: Add Serial Number
+      netbox_device:
+        netbox_url: http://31.129.56.21:8080/
+        netbox_token: "токен"
+        data:
+          name: "{{interfaces[0].device.name}}"
+          serial: "{{license.stdout_lines[0][0].split(' ').1}}"
+        state: present
+        validate_certs: False
+```
+Как результат, в веб-интерфейсе NetBox для каждого CHR отобразился соответствующий серийный номер:
+ ![](pics/4.jpg)    1 роутер
+ ![](pics/5.jpg)    2 роутер
+
+
 
 ---  
 # Вывод
-Лабораторная работа продемонстрировала возможности Ansible для автоматизации настройки сетевых устройств. 
+В рамках работы была развернута система NetBox на отдельной виртуальной машине и внесена информация о двух устройствах MikroTik CHR. С помощью Ansible были:
+
+- выгружены данные из NetBox в файл;
+
+- реализован сценарий настройки CHR: изменение имени и добавление IP-адреса;
+
+- написан скрипт для сбора серийного номера и его отправки в NetBox.
+
+Все задачи выполнены успешно, автоматизация настроек и интеграция с NetBox работают корректно.
