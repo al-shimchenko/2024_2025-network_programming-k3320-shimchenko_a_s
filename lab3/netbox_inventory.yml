@@ -1,0 +1,203 @@
+[
+  [
+    {
+      "key": 1,
+      "value": {
+        "id": 1,
+        "url": "http://31.129.56.21:8000/api/dcim/devices/1/",
+        "display_url": "http://31.129.56.21:8000/dcim/devices/1/",
+        "display": "R1",
+        "name": "R1",
+        "device_type": {
+          "id": 1,
+          "url": "http://31.129.56.21:8000/api/dcim/device-types/1/",
+          "display": "RouterOS 7",
+          "manufacturer": {
+            "id": 1,
+            "url": "http://31.129.56.21:8000/api/dcim/manufacturers/1/",
+            "display": "MikroTik",
+            "name": "MikroTik",
+            "slug": "mikrotik",
+            "description": ""
+          },
+          "model": "RouterOS 7",
+          "slug": "routeros-7",
+          "description": ""
+        },
+        "role": {
+          "id": 1,
+          "url": "http://31.129.56.21:8000/api/dcim/device-roles/1/",
+          "display": "CHR",
+          "name": "CHR",
+          "slug": "chr",
+          "description": ""
+        },
+        "tenant": null,
+        "platform": {
+          "id": 1,
+          "url": "http://31.129.56.21:8000/api/dcim/platforms/1/",
+          "display": "MikroTik",
+          "name": "MikroTik",
+          "slug": "mikrotik",
+          "description": ""
+        },
+        "serial": "",
+        "asset_tag": null,
+        "site": {
+          "id": 1,
+          "url": "http://31.129.56.21:8000/api/dcim/sites/1/",
+          "display": "lab3",
+          "name": "lab3",
+          "slug": "lab3",
+          "description": ""
+        },
+        "location": null,
+        "rack": null,
+        "position": null,
+        "face": null,
+        "latitude": null,
+        "longitude": null,
+        "parent_device": null,
+        "status": { "value": "active", "label": "Active" },
+        "airflow": null,
+        "primary_ip": {
+          "id": 1,
+          "url": "http://31.129.56.21:8000/api/ipam/ip-addresses/1/",
+          "display": "10.10.10.1/32",
+          "family": { "value": 4, "label": "IPv4" },
+          "address": "10.10.10.1/32",
+          "description": ""
+        },
+        "primary_ip4": {
+          "id": 1,
+          "url": "http://94.26.224.44:8000/api/ipam/ip-addresses/1/",
+          "display": "172.27.240.21/32",
+          "family": { "value": 4, "label": "IPv4" },
+          "address": "172.27.240.21/32",
+          "description": ""
+        },
+        "primary_ip6": null,
+        "oob_ip": null,
+        "cluster": null,
+        "virtual_chassis": null,
+        "vc_position": null,
+        "vc_priority": null,
+        "description": "",
+        "comments": "",
+        "config_template": null,
+        "config_context": {},
+        "local_context_data": null,
+        "tags": [],
+        "custom_fields": {},
+        "created": "2025-06-08T20:30:23.190663Z",
+        "last_updated": "2025-06-08T20:53:05.058530Z",
+        "console_port_count": 0,
+        "console_server_port_count": 0,
+        "power_port_count": 0,
+        "power_outlet_count": 0,
+        "interface_count": 1,
+        "front_port_count": 0,
+        "rear_port_count": 0,
+        "device_bay_count": 0,
+        "module_bay_count": 0,
+        "inventory_item_count": 0
+      }
+    },
+    {
+      "key": 2,
+      "value": {
+        "id": 2,
+        "url": "http://94.26.224.44:8000/api/dcim/devices/2/",
+        "display_url": "http://94.26.224.44:8000/dcim/devices/2/",
+        "display": "R2",
+        "name": "R2",
+        "device_type": {
+          "id": 1,
+          "url": "http://94.26.224.44:8000/api/dcim/device-types/1/",
+          "display": "RouterOS 7",
+          "manufacturer": {
+            "id": 1,
+            "url": "http://94.26.224.44:8000/api/dcim/manufacturers/1/",
+            "display": "MikroTik",
+            "name": "MikroTik",
+            "slug": "mikrotik",
+            "description": ""
+          },
+          "model": "RouterOS 7",
+          "slug": "routeros-7",
+          "description": ""
+        },
+        "role": {
+          "id": 1,
+          "url": "http://94.26.224.44:8000/api/dcim/device-roles/1/",
+          "display": "CHR",
+          "name": "CHR",
+          "slug": "chr",
+          "description": ""
+        },
+        "tenant": null,
+        "platform": null,
+        "serial": "",
+        "asset_tag": null,
+        "site": {
+          "id": 1,
+          "url": "http://94.26.224.44:8000/api/dcim/sites/1/",
+          "display": "lab3",
+          "name": "lab3",
+          "slug": "lab3",
+          "description": ""
+        },
+        "location": null,
+        "rack": null,
+        "position": null,
+        "face": null,
+        "latitude": null,
+        "longitude": null,
+        "parent_device": null,
+        "status": { "value": "active", "label": "Active" },
+        "airflow": null,
+        "primary_ip": {
+          "id": 2,
+          "url": "http://94.26.224.44:8000/api/ipam/ip-addresses/2/",
+          "display": "10.10.10.2/32",
+          "family": { "value": 4, "label": "IPv4" },
+          "address": "10.10.10.2/32",
+          "description": ""
+        },
+        "primary_ip4": {
+          "id": 2,
+          "url": "http://94.26.224.44:8000/api/ipam/ip-addresses/2/",
+          "display": "172.27.240.21/32",
+          "family": { "value": 4, "label": "IPv4" },
+          "address": "172.27.240.21/32",
+          "description": ""
+        },
+        "primary_ip6": null,
+        "oob_ip": null,
+        "cluster": null,
+        "virtual_chassis": null,
+        "vc_position": null,
+        "vc_priority": null,
+        "description": "",
+        "comments": "",
+        "config_template": null,
+        "config_context": {},
+        "local_context_data": null,
+        "tags": [],
+        "custom_fields": {},
+        "created": "2025-06-08T20:31:10.730838Z",
+        "last_updated": "2025-06-08T20:55:09.923043Z",
+        "console_port_count": 0,
+        "console_server_port_count": 0,
+        "power_port_count": 0,
+        "power_outlet_count": 0,
+        "interface_count": 1,
+        "front_port_count": 0,
+        "rear_port_count": 0,
+        "device_bay_count": 0,
+        "module_bay_count": 0,
+        "inventory_item_count": 0
+      }
+    }
+  ]
+]
